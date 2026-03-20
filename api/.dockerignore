@@ -1,0 +1,17 @@
+# Pastas de compilação e cache
+bin/
+obj/
+.vs/
+.vscode/
+
+# Arquivos de usuário e segredos
+*.user
+appsettings.Development.json
+secrets.json
+
+# Docker e Logs
+.dockerignore
+Dockerfile
+docker-compose*
+logs/
+*.log
