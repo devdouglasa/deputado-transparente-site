@@ -1,0 +1,19 @@
+# Dependências (O Docker deve rodar o npm install sozinho)
+node_modules/
+npm-debug.log
+
+# Pasta de build local
+dist/
+build/
+
+# Configurações de IDE e ambiente
+.vscode/
+.idea/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+Dockerfile
+.dockerignore

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # --- BANCO DE DADOS ---
+  db:
+    image: postgres:18-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: devel
+      POSTGRES_PASSWORD: devel
+      POSTGRES_DB: api_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # --- API .NET ---
+  api:
+    build: ./api
+    container_name: dotnet_api
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=api_db;Username=devel;Password=devel
+    ports:
+      - "5221:8080"
+
+  # --- FRONTEND ---
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:5221
+    container_name: react_front
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
